@@ -1,5 +1,7 @@
 package com.example.connecttointernet.ui
 
+import com.example.connecttointernet.model.Image
+
 data class ConnectUiState (
-    val imagen : String = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/132.png"
+    var image : Image = Image()
 )
