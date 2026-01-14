@@ -23,34 +23,36 @@ class ConnectViewModel : ViewModel() {
         viewModelScope.launch {
             try {
 
-                val one_generation = mutableListOf<PokeData>()
-                val two_generation = mutableListOf<PokeData>()
-                val three_generation = mutableListOf<PokeData>()
-                val four_generation = mutableListOf<PokeData>()
-                val five_generation = mutableListOf<PokeData>()
+                val oneGeneration = mutableListOf<PokeData>()
+                val twoGeneration = mutableListOf<PokeData>()
+                val threeGeneration = mutableListOf<PokeData>()
+                val fourGeneration = mutableListOf<PokeData>()
+                val fiveGeneration = mutableListOf<PokeData>()
 
-                for (i in 1..1025) {
+                for (i in 1..649) {
                     val pokemon = PokeApi.retrofitService.getPokemon(i)
                     if (i <= 151) {
-                        one_generation.add(pokemon)
+                        oneGeneration.add(pokemon)
                     } else if (i <= 251) {
-                        two_generation.add(pokemon)
-                    } else if (i <= 251) {
-                        three_generation.add(pokemon)
-                    } else if (i <= 251) {
-                        four_generation.add(pokemon)
-                    } else if (i <= 251) {
-                        five_generation.add(pokemon)
+                        twoGeneration.add(pokemon)
+                    } else if (i <= 368) {
+                        threeGeneration.add(pokemon)
+                    } else if (i <= 493) {
+                        fourGeneration.add(pokemon)
+                    } else {
+                        fiveGeneration.add(pokemon)
                     }
 
                 }
 
                 _uiState.update { estado ->
-                    estado.copy(one_generation = one_generation)
-                    estado.copy(two_generation = two_generation)
-                    estado.copy(three_generation = three_generation)
-                    estado.copy(four_generation = four_generation)
-                    estado.copy(five_generation = five_generation)
+                    estado.copy(
+                        oneGeneration = oneGeneration,
+                        twoGeneration = twoGeneration,
+                        threeGeneration = threeGeneration,
+                        fourGeneration = fourGeneration,
+                        fiveGeneration = fiveGeneration
+                    )
                 }
 
             } catch (e: Exception) {

@@ -30,7 +30,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.connecttointernet.ui.ConnectScreen
 import com.example.connecttointernet.ui.ConnectViewModel
-import kotlinx.coroutines.CoroutineScope
 
 enum class Generations {
     GEN_1,
@@ -78,7 +77,7 @@ fun Main(
                         },
                         selected = false,
                         onClick = {
-
+                            navController.navigate(Generations.GEN_2.name)
                         }
                     )
                     NavigationDrawerItem(
@@ -87,7 +86,7 @@ fun Main(
                         },
                         selected = false,
                         onClick = {
-
+                            navController.navigate(Generations.GEN_3.name)
                         }
                     )
                     NavigationDrawerItem(
@@ -96,7 +95,7 @@ fun Main(
                         },
                         selected = false,
                         onClick = {
-
+                            navController.navigate(Generations.GEN_4.name)
                         }
                     )
                     NavigationDrawerItem(
@@ -105,7 +104,7 @@ fun Main(
                         },
                         selected = false,
                         onClick = {
-
+                            navController.navigate(Generations.GEN_5.name)
                         }
                     )
                 }
@@ -124,19 +123,19 @@ fun Main(
                 modifier = Modifier.padding(innerPadding)
             ) {
                 composable(Generations.GEN_1.name) {
-                    ConnectScreen(pokemones = uiState.one_generation)
+                    ConnectScreen(pokemones = uiState.oneGeneration)
                 }
                 composable(Generations.GEN_2.name) {
-                    ConnectScreen(pokemones = uiState.two_generation)
+                    ConnectScreen(pokemones = uiState.twoGeneration)
                 }
                 composable(Generations.GEN_3.name) {
-                    ConnectScreen(pokemones = uiState.three_generation)
+                    ConnectScreen(pokemones = uiState.threeGeneration)
                 }
                 composable(Generations.GEN_4.name) {
-                    ConnectScreen(pokemones = uiState.four_generation)
+                    ConnectScreen(pokemones = uiState.fourGeneration)
                 }
                 composable(Generations.GEN_5  .name) {
-                    ConnectScreen(pokemones = uiState.five_generation)
+                    ConnectScreen(pokemones = uiState.fiveGeneration)
                 }
             }
         }
