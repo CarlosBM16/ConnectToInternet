@@ -68,42 +68,42 @@ fun Main(
                             navController.navigate(Generations.ConnectScreen.name)
                         }
                     )
-                    NavigationDrawerItem(
-                        label = {
-                            Text("1º Generation")
-                        },
-                        selected = false,
-                        onClick = {
-
-                        }
-                    )
-                    NavigationDrawerItem(
-                        label = {
-                            Text("1º Generation")
-                        },
-                        selected = false,
-                        onClick = {
-
-                        }
-                    )
-                    NavigationDrawerItem(
-                        label = {
-                            Text("1º Generation")
-                        },
-                        selected = false,
-                        onClick = {
-
-                        }
-                    )
-                    NavigationDrawerItem(
-                        label = {
-                            Text("1º Generation")
-                        },
-                        selected = false,
-                        onClick = {
-
-                        }
-                    )
+//                    NavigationDrawerItem(
+//                        label = {
+//                            Text("2º Generation")
+//                        },
+//                        selected = false,
+//                        onClick = {
+//
+//                        }
+//                    )
+//                    NavigationDrawerItem(
+//                        label = {
+//                            Text("3º Generation")
+//                        },
+//                        selected = false,
+//                        onClick = {
+//
+//                        }
+//                    )
+//                    NavigationDrawerItem(
+//                        label = {
+//                            Text("4º Generation")
+//                        },
+//                        selected = false,
+//                        onClick = {
+//
+//                        }
+//                    )
+//                    NavigationDrawerItem(
+//                        label = {
+//                            Text("5º Generation")
+//                        },
+//                        selected = false,
+//                        onClick = {
+//
+//                        }
+//                    )
                 }
             }
         }
@@ -122,18 +122,18 @@ fun Main(
                 composable(Generations.ConnectScreen.name) {
                     ConnectScreen(pokemones = uiState.one_generation)
                 }
-                composable(Generations.ConnectScreen.name) {
-                    ConnectScreen(pokemones = uiState.two_generation)
-                }
-                composable(Generations.ConnectScreen.name) {
-                    ConnectScreen(pokemones = uiState.three_generation)
-                }
-                composable(Generations.ConnectScreen.name) {
-                    ConnectScreen(pokemones = uiState.four_generation)
-                }
-                composable(Generations.ConnectScreen.name) {
-                    ConnectScreen(pokemones = uiState.five_generation)
-                }
+//                composable(Generations.ConnectScreen.name) {
+//                    ConnectScreen(pokemones = uiState.two_generation)
+//                }
+//                composable(Generations.ConnectScreen.name) {
+//                    ConnectScreen(pokemones = uiState.three_generation)
+//                }
+//                composable(Generations.ConnectScreen.name) {
+//                    ConnectScreen(pokemones = uiState.four_generation)
+//                }
+//                composable(Generations.ConnectScreen.name) {
+//                    ConnectScreen(pokemones = uiState.five_generation)
+//                }
             }
         }
     }
