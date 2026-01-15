@@ -27,6 +27,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.connecttointernet.ui.ConnectScreen
 import com.example.connecttointernet.ui.ConnectViewModel
@@ -45,6 +46,18 @@ fun Main(
 ) {
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val uiState by viewModel.uiState.collectAsState()
+
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route
+
+    val title = when (currentRoute) {
+        Generations.GEN_1.name -> "Generación 1"
+        Generations.GEN_2.name -> "Generación 2"
+        Generations.GEN_3.name -> "Generación 3"
+        Generations.GEN_4.name -> "Generación 4"
+        Generations.GEN_5.name -> "Generación 5"
+        else -> "Pokédex"
+    }
 
 
     ModalNavigationDrawer(
@@ -113,7 +126,7 @@ fun Main(
     ) {
         Scaffold(
             topBar = {
-                MainTopBar("Generación 1")
+                MainTopBar(title)
             }
         ) {
             innerPadding ->

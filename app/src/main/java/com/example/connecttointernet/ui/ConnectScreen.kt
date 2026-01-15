@@ -1,5 +1,7 @@
 package com.example.connecttointernet.ui
 
+import android.media.MediaPlayer
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.FlowRow
@@ -19,14 +21,16 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.example.connecttointernet.network.PokeData
 
@@ -82,11 +86,7 @@ fun PokemonCard(pokemon: PokeData) {
             }
 
             // Imagen a la derecha
-            AsyncImage(
-                model = pokemon.sprites.other.officialArtwork.url,
-                contentDescription = pokemon.name,
-                modifier = Modifier.size(80.dp)
-            )
+            PokemonImage(pokemon)
         }
     }
 }
@@ -114,4 +114,57 @@ fun PokemonTypesChips(pokemon: PokeData) {
             Spacer(modifier = Modifier.padding(4.dp))
         }
     }
+}
+
+@Composable
+fun rememberPokemonCryPlayer(url: String?): () -> Unit {
+    // Recuerda el sonido de cada pokemon, además de añadir la utilidad de emitir el sonido
+    var mediaPlayer by remember { mutableStateOf<MediaPlayer?>(null) }
+
+    // Ejecuta un unico valor, cuando cambia se limpia el valor anterior y lanza el nuevo
+    DisposableEffect(url) {
+        // se ejecuta cuando cambia o se libera el valor asignado
+        onDispose {
+            // libera el sonido del media player
+            mediaPlayer?.release()
+            mediaPlayer = null
+        }
+    }
+
+    // devuelve una función qeu solo se ejecuta cuando haces click en la imagen
+    return let@{
+        // evita errores por si no hay ningún url con el sonido
+        if (url.isNullOrBlank()) return@let
+
+        // libera el sonido
+        mediaPlayer?.release()
+
+        // crea la nueva instancia de media Player
+        mediaPlayer = MediaPlayer().apply {
+            // indica el sonido a reproducir
+            setDataSource(url)
+            // prepara el sonido en segundo plano
+            prepareAsync()
+            // ejecuta el sonido
+            setOnPreparedListener {
+                start()
+            }
+        }
+    }
+}
+
+@Composable
+fun PokemonImage(pokemon: PokeData) {
+    // guarda la funcion de reproducción de sonido
+    val playCry = rememberPokemonCryPlayer(pokemon.cries.latest)
+
+    AsyncImage(
+        model = pokemon.sprites.other.officialArtwork.url,
+        contentDescription = pokemon.name,
+        modifier = Modifier
+            .size(80.dp)
+            .clickable {
+                playCry()
+            }
+    )
 }

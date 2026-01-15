@@ -15,6 +15,12 @@ class ConnectViewModel : ViewModel() {
     private val _uiState = MutableStateFlow(ConnectUiState())
     val uiState: StateFlow<ConnectUiState> = _uiState.asStateFlow()
 
+    val oneGeneration = mutableListOf<PokeData>()
+    val twoGeneration = mutableListOf<PokeData>()
+    val threeGeneration = mutableListOf<PokeData>()
+    val fourGeneration = mutableListOf<PokeData>()
+    val fiveGeneration = mutableListOf<PokeData>()
+
     init {
         loadPokemons()
     }
@@ -23,27 +29,7 @@ class ConnectViewModel : ViewModel() {
         viewModelScope.launch {
             try {
 
-                val oneGeneration = mutableListOf<PokeData>()
-                val twoGeneration = mutableListOf<PokeData>()
-                val threeGeneration = mutableListOf<PokeData>()
-                val fourGeneration = mutableListOf<PokeData>()
-                val fiveGeneration = mutableListOf<PokeData>()
-
-                for (i in 1..649) {
-                    val pokemon = PokeApi.retrofitService.getPokemon(i)
-                    if (i <= 151) {
-                        oneGeneration.add(pokemon)
-                    } else if (i <= 251) {
-                        twoGeneration.add(pokemon)
-                    } else if (i <= 368) {
-                        threeGeneration.add(pokemon)
-                    } else if (i <= 493) {
-                        fourGeneration.add(pokemon)
-                    } else {
-                        fiveGeneration.add(pokemon)
-                    }
-
-                }
+                setPokemonxGeneretion()
 
                 _uiState.update { estado ->
                     estado.copy(
@@ -57,6 +43,23 @@ class ConnectViewModel : ViewModel() {
 
             } catch (e: Exception) {
                 Log.e("ERROR_API", e.message ?: "Error")
+            }
+        }
+    }
+
+    private suspend fun setPokemonxGeneretion() {
+        for (i in 1..649) {
+            val pokemon = PokeApi.retrofitService.getPokemon(i)
+            if (i <= 151) {
+                oneGeneration.add(pokemon)
+            } else if (i <= 251) {
+                twoGeneration.add(pokemon)
+            } else if (i <= 386) {
+                threeGeneration.add(pokemon)
+            } else if (i <= 493) {
+                fourGeneration.add(pokemon)
+            } else {
+                fiveGeneration.add(pokemon)
             }
         }
     }
